@@ -72,6 +72,48 @@ app.get("/api/tmdb/discover/tv", async (req, res) => {
     }
 });
 
+// Recherche multi (films et séries)
+app.get("/api/tmdb/search/multi", async (req, res) => {
+    try {
+        const { query, page = 1 } = req.query;
+        if (!query) {
+            return res.status(400).json({ error: "Le paramètre 'query' est requis" });
+        }
+        const encodedQuery = encodeURIComponent(query);
+        res.json(await fetchTMDB(`/search/multi?language=fr-FR&query=${encodedQuery}&page=${page}`));
+    } catch (error) {
+        handleError(res, error);
+    }
+});
+
+// Recherche de films uniquement
+app.get("/api/tmdb/search/movie", async (req, res) => {
+    try {
+        const { query, page = 1 } = req.query;
+        if (!query) {
+            return res.status(400).json({ error: "Le paramètre 'query' est requis" });
+        }
+        const encodedQuery = encodeURIComponent(query);
+        res.json(await fetchTMDB(`/search/movie?language=fr-FR&query=${encodedQuery}&page=${page}`));
+    } catch (error) {
+        handleError(res, error);
+    }
+});
+
+// Recherche de séries TV uniquement
+app.get("/api/tmdb/search/tv", async (req, res) => {
+    try {
+        const { query, page = 1 } = req.query;
+        if (!query) {
+            return res.status(400).json({ error: "Le paramètre 'query' est requis" });
+        }
+        const encodedQuery = encodeURIComponent(query);
+        res.json(await fetchTMDB(`/search/tv?language=fr-FR&query=${encodedQuery}&page=${page}`));
+    } catch (error) {
+        handleError(res, error);
+    }
+});
+
 app.listen(3500, () => {
     console.log("Server démarrer sur le port http://localhost:3500");
 });
