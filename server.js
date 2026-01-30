@@ -114,6 +114,60 @@ app.get("/api/tmdb/search/tv", async (req, res) => {
     }
 });
 
+app.get("/api/tmdb/movie/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        res.json(await fetchTMDB(`/movie/${id}?language=fr-FR`));
+    } catch (error) {
+        handleError(res, error);
+    }
+});
+
+app.get("/api/tmdb/tv/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        res.json(await fetchTMDB(`/tv/${id}?language=fr-FR`));
+    } catch (error) {
+        handleError(res, error);
+    }
+});
+
+app.get("/api/tmdb/movie/:id/images", async (req, res) => {
+    try {
+        const { id } = req.params;
+        res.json(await fetchTMDB(`/movie/${id}/images`));
+    } catch (error) {
+        handleError(res, error);
+    }
+});
+
+app.get("/api/tmdb/tv/:id/images", async (req, res) => {
+    try {
+        const { id } = req.params;
+        res.json(await fetchTMDB(`/tv/${id}/images`));
+    } catch (error) {
+        handleError(res, error);
+    }
+});
+
+app.get("/api/tmdb/movie/:id/videos", async (req, res) => {
+    try {
+        const { id } = req.params;
+        res.json(await fetchTMDB(`/movie/${id}/videos?language=fr-FR`));
+    } catch (error) {
+        handleError(res, error);
+    }
+});
+
+app.get("/api/tmdb/tv/:id/videos", async (req, res) => {
+    try {
+        const { id } = req.params;
+        res.json(await fetchTMDB(`/tv/${id}/videos?language=fr-FR`));
+    } catch (error) {
+        handleError(res, error);
+    }
+});
+
 app.listen(3500, () => {
     console.log("Server démarrer sur le port http://localhost:3500");
 });
